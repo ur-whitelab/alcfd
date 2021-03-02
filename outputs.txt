@@ -1,8 +1,0 @@
-﻿# 
-# 01/18/2021 10:06:29
-# The parameters defined in the project are:
-# ,P3 - pipe_D [m],P4 - elbow_angle [degree],P5 - Mesh Element Size,P6 - Mesh Max Size,P7 - inlet_v [m s^-1],P8 - p_in-op [Pa],P9 - del_p-op [Pa]
-# 
-# The following header line defines the name of the columns by reference to the parameters.
-Name,P3,P4,P5,P6,P7,P8,P9
-DP 0,0.5,120,0.025,0.025,2,2.4884004,1.4922996
