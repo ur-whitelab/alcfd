@@ -5,8 +5,8 @@ SetScriptVersion(Version="20.2.221")
 
 print('Restoring project from archive...')
 Unarchive(
-    ArchivePath="/scratch/mgholiza/alcfd/archived_models/elbowed_pipe/elbowed_pipe.wbpz",
-    ProjectPath="/scratch/mgholiza/alcfd/archived_models/elbowed_pipe/elbowed_pipe.wbpj",
+    ArchivePath="/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe.wbpz",
+    ProjectPath="/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe.wbpj",
     Overwrite=True)
 print('Project loaded.')
 
@@ -59,15 +59,15 @@ for inputs in input_params:
     system1 = GetSystem(Name="FLU")
     setup1 = system1.GetContainer(ComponentName="Setup")
     print('Exporting results...')
-    Parameters.ExportAllDesignPointsData(FilePath="/scratch/mgholiza/alcfd/output.txt")
-    with open('output.txt','r') as file:
+    Parameters.ExportAllDesignPointsData(FilePath="/scratch/awhite38_lab/cfdsr/alcfd/outputs.txt")
+    with open('outputs.txt','r') as file:
         for line in file.readlines():
             pass
         last_line =line
         output = [float(m) for m in last_line[2:].split(',')[1:]]
     outputs.append(output)   
 header = ['pipe_d', 'elbow_angle', 'mesh_element_size','mesh_max_size', 'density', 'viscosity', 'inlet_v', 'inlet_p', 'p0', 'p1', 'del_p']
-with open("/scratch/mgholiza/alcfd/outputs.txt","w") as f:
+with open("/scratch/awhite38_lab/cfdsr/alcfd/outputs.txt","w") as f:
     wr = csv.writer(f, delimiter='\t')
     wr.writerow([i for i in header])
     wr.writerows(outputs)
