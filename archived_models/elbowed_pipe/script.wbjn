@@ -27,7 +27,7 @@ with open('inputs.txt', 'r') as file:
 
 outputs = []
 for inputs in input_params:
-    d, theta, rho, muo , v_in, p_in = inputs
+    d, l_d_ratio, theta, rho, muo , v_in, p_in = inputs
     designPoint1 = Parameters.GetDesignPoint(Name="0")
     parameter1 = Parameters.GetParameter(Name="P1")
     designPoint1.SetParameterExpression(
@@ -53,6 +53,10 @@ for inputs in input_params:
     designPoint1.SetParameterExpression(
         Parameter=parameter6,
         Expression="{} [Pa]". format(p_in))
+    parameter7 = Parameters.GetParameter(Name="P25")
+    designPoint1.SetParameterExpression(
+        Parameter=parameter7,
+        Expression="{}".format(l_d_ratio))
     print('Running simulation...')
     Update()
     print('Simulation complete.')
@@ -66,7 +70,8 @@ for inputs in input_params:
         last_line =line
         output = [float(m) for m in last_line[2:].split(',')[1:]]
     outputs.append(output)   
-header = ['pipe_d', 'elbow_angle', 'mesh_element_size','mesh_max_size', 'density', 'viscosity', 'inlet_v', 'inlet_p', 'p0', 'p1', 'del_p']
+header = ['Pipe D', 'Elbow angle', 'Mesh size','Mesh max size', 'Density', 'Viscosity', 'Inlet V', 'Inlet P','Pipe L/D',\
+          'Pipe R', 'Pipe L', 'p0', 'p1', 'Del P/L']
 with open("/scratch/awhite38_lab/cfdsr/alcfd/outputs.txt","w") as f:
     wr = csv.writer(f, delimiter='\t')
     wr.writerow([i for i in header])
