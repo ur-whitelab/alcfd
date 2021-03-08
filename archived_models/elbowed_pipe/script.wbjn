@@ -18,7 +18,7 @@ Extensions.UnloadExtension(
 # Reading input parameters from file
 import csv
 input_params = []
-with open('inputs.txt', 'r') as file:
+with open('/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/inputs.txt', 'r') as file:
     # skipping the header
     next(file)
     input_data = csv.reader(file, delimiter='\t')
@@ -27,7 +27,7 @@ with open('inputs.txt', 'r') as file:
 
 outputs = []
 for inputs in input_params:
-    d, l_d_ratio, theta, rho, muo , v_in, p_in = inputs
+    d, l_d_ratio, theta, rho, muo , v_in, p_in, outputs_dir = inputs
     designPoint1 = Parameters.GetDesignPoint(Name="0")
     parameter1 = Parameters.GetParameter(Name="P1")
     designPoint1.SetParameterExpression(
@@ -63,8 +63,8 @@ for inputs in input_params:
     system1 = GetSystem(Name="FLU")
     setup1 = system1.GetContainer(ComponentName="Setup")
     print('Exporting results...')
-    Parameters.ExportAllDesignPointsData(FilePath="/scratch/awhite38_lab/cfdsr/alcfd/outputs.txt")
-    with open('outputs.txt','r') as file:
+    Parameters.ExportAllDesignPointsData(FilePath=outputs_dir)
+    with open(outputs_dir,'r') as file:
         for line in file.readlines():
             pass
         last_line =line
@@ -72,7 +72,7 @@ for inputs in input_params:
     outputs.append(output)   
 header = ['Pipe D', 'Elbow angle', 'Mesh size','Mesh max size', 'Density', 'Viscosity', 'Inlet V', 'Inlet P','Pipe L/D',\
           'Pipe R', 'Pipe L', 'p0', 'p1', 'Del P/L']
-with open("/scratch/awhite38_lab/cfdsr/alcfd/outputs.txt","w") as f:
+with open(outputs_dir,"w") as f:
     wr = csv.writer(f, delimiter='\t')
     wr.writerow([i for i in header])
     wr.writerows(outputs)
