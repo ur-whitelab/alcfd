@@ -3,29 +3,41 @@ import pandas as pd
 import os
 import sys
 import numpy as np
+import shutil
 
 
-def run_model(pipe_D, bend_angle, rho, muo, inlet_v, inlet_p, l_d_ratio=None):
+def run_model(pipe_D, bend_angle, rho, muo, inlet_v, inlet_p, l_d_ratio=None, name=None, debug=False):
         if l_d_ratio is None:
             l_d_ratio = 10
-            print('No input was given for pipe L/D. Assuming L/D = 10.')
+            print(f'No input was given for pipe L/D. Assuming L/D = {l_d_ratio}.')
+        if name is None:
+            name = ''
+        path = os.getcwd()
+        inputs_dir = path + '/inputs' + f'_{name}.txt'
+        outputs_dir = path + '/outputs' + f'_{name}.txt'
         input_dict = {'D': pipe_D, 'L_D_ratio': l_d_ratio, 'Angle': bend_angle, 'Density': rho,
-                'Viscosity': muo, 'V_in': inlet_v, 'P_in': inlet_p}
+                      'Viscosity': muo, 'V_in': inlet_v, 'P_in': inlet_p, 'outputs_file': outputs_dir}
         df = pd.DataFrame(input_dict)
-        df.to_csv('inputs.txt', header=True, sep='\t', index=None)
+        df.to_csv(inputs_dir, header=True, sep='\t', index=None)
+        print(f'Model inputs are saved in:\n {inputs_dir}')
         check_laminar(pipe_D, rho, inlet_v, muo)
-        script = 'archived_models/elbowed_pipe/script.wbjn'
+        script = '/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/script.wbjn'
         wb = '/scratch/dfoster_lab/ansys2020R2/v202/Framework/bin/Linux64/runwb2'
-        cmdline = '{} -B -R {}'.format(wb, script)
+        shutil.copyfile(
+            inputs_dir, '/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/inputs.txt')
+        if debug:
+            cmdline = '{} -B -R {} > run_log.txt'.format(wb, script)
+        else:
+            cmdline = '{} -B -R {}'.format(wb, script)
         try:
                 os.system(cmdline)
         except Exception:
                 print('Failed to launch ANSYS Workbench!')
                 sys.exit(0)
-        outputs = pd.read_csv('outputs.txt', delimiter='\t')
+        outputs = pd.read_csv(outputs_dir, delimiter='\t')
         outputs = outputs.drop(columns=['Mesh max size',
                                   'Pipe R', 'Pipe L', 'p0', 'p1'])
-        print('Results are stored in outputs.txt')
+        print(f'Results are stored in:\n {outputs_dir}.')
         return outputs
 
 
