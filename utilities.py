@@ -6,7 +6,7 @@ import numpy as np
 import shutil
 
 
-def run_model(pipe_D, bend_angle, rho, muo, inlet_v, inlet_p, l_d_ratio=None, name=None, debug=False):
+def run_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, inlet_p=101325, l_d_ratio=None, name=None, debug=False):
         if l_d_ratio is None:
             l_d_ratio = 10
             print(f'No input was given for pipe L/D. Assuming L/D = {l_d_ratio}.')
@@ -15,8 +15,12 @@ def run_model(pipe_D, bend_angle, rho, muo, inlet_v, inlet_p, l_d_ratio=None, na
         path = os.getcwd()
         inputs_dir = path + '/inputs' + f'_{name}.txt'
         outputs_dir = path + '/outputs' + f'_{name}.txt'
-        input_dict = {'D': pipe_D, 'L_D_ratio': l_d_ratio, 'Angle': bend_angle, 'Density': rho,
-                      'Viscosity': muo, 'V_in': inlet_v, 'P_in': inlet_p, 'outputs_file': outputs_dir}
+        if isinstance(pipe_D, list) and isinstance(bend_angle, list) and isinstance(inlet_v, list):
+            input_dict = {'D': pipe_D, 'L_D_ratio': l_d_ratio, 'Angle': bend_angle, 'Density': rho,
+                          'Viscosity': muo, 'V_in': inlet_v, 'P_in': inlet_p, 'outputs_file': outputs_dir}
+        else:
+            input_dict = {'D': [pipe_D], 'L_D_ratio': [l_d_ratio], 'Angle': [bend_angle], 'Density': [rho],
+                          'Viscosity': [muo], 'V_in': [inlet_v], 'P_in': [inlet_p], 'outputs_file': [outputs_dir]}
         df = pd.DataFrame(input_dict)
         df.to_csv(inputs_dir, header=True, sep='\t', index=None)
         print(f'Model inputs are saved in:\n {inputs_dir}')
@@ -41,12 +45,20 @@ def run_model(pipe_D, bend_angle, rho, muo, inlet_v, inlet_p, l_d_ratio=None, na
         return outputs
 
 
-def check_laminar(pipe_D, rho, inlet_v, muo):
-    re_number = rho*inlet_v*pipe_D/muo
-    a = np.where(re_number > 2100)[0]
-    assert len(
-        a) == 0, f'Model input {a} parameters will result a turbulent flow. Revise parameters!\n Unacceptable Re = {re_number[a]}'
-    return re_number
+def check_laminar(pipe_D, inlet_v, rho=1.225, muo=1.7894e-5):
+    if isinstance(pipe_D, (list, tuple)):
+        re_number = rho*inlet_v*pipe_D/muo
+        a = np.where(re_number > 2100)[0]
+        print(re_number, a)
+        assert len(
+            a) == 0, f'Model input {a} parameters will result a turbulent flow. Revise parameters!\n Unacceptable Re = {re_number[a]}'
+        return re_number
+    else:
+        re_number = rho*inlet_v*pipe_D/muo
+        if re_number > 2100:
+            return True
+        else:
+            return False
 
 def compute_Hagen_Poiseuille_del_PL(muo, inlet_v, pipe_D):
     del_pl = 32 * muo  * inlet_v / pipe_D**2
