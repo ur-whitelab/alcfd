@@ -25,9 +25,13 @@ with open('/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/inputs
     for inputs in input_data:
         input_params.append(inputs)
 
+n_runs = len(input_params)
 outputs = []
-for inputs in input_params:
+for i, inputs in enumerate (input_params):
     d, l_d_ratio, theta, rho, muo , v_in, p_in, outputs_dir = inputs
+    print('\nRunning case {}.'.format(i+1))
+    print('Input parameters:\n Pipe D: {}, Pip l/D: {}, Bend angle: {}, Density: {}, Viscosity: {}, Inlet V: {}, Inlet P: {}\n'\
+        .format(d, l_d_ratio, theta, rho, muo, v_in, p_in))
     designPoint1 = Parameters.GetDesignPoint(Name="0")
     parameter1 = Parameters.GetParameter(Name="P1")
     designPoint1.SetParameterExpression(
@@ -57,9 +61,9 @@ for inputs in input_params:
     designPoint1.SetParameterExpression(
         Parameter=parameter7,
         Expression="{}".format(l_d_ratio))
-    print('Running simulation...')
+    print('Running simulation for case {} ...'.format(i+1))
     Update()
-    print('Simulation complete.')
+    print('Simulation complete for case {}.'.format(i+1))
     system1 = GetSystem(Name="FLU")
     setup1 = system1.GetContainer(ComponentName="Setup")
     print('Exporting results...')
