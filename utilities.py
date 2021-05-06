@@ -22,6 +22,7 @@ def run_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, inlet_p=101
             input_dict = {'D': [pipe_D], 'L_D_ratio': [l_d_ratio], 'Angle': [bend_angle], 'Density': [rho],
                           'Viscosity': [muo], 'V_in': [inlet_v], 'P_in': [inlet_p], 'outputs_file': [outputs_dir]}
         df = pd.DataFrame(input_dict)
+        print('Inputs to the model are:\n{}'.format(df))
         df.to_csv(inputs_dir, header=True, sep='\t', index=None)
         print(f'Model inputs are saved in:\n {inputs_dir}')
         check_laminar(pipe_D, rho, inlet_v, muo)
@@ -55,7 +56,8 @@ def check_laminar(pipe_D, inlet_v, rho=1.225, muo=1.7894e-5):
         return re_number
     else:
         re_number = rho*inlet_v*pipe_D/muo
-        if re_number > 2100:
+        print(re_number)
+        if re_number < 2100:
             return True
         else:
             return False
