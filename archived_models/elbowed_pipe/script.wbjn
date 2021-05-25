@@ -2,7 +2,7 @@
 # 2020 R2
 print('Opening ANSYS WB...')
 SetScriptVersion(Version="20.2.221")
-
+input_file = "/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/inputs.txt"
 print('Restoring project from archive...')
 Unarchive(
     ArchivePath="/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe.wbpz",
@@ -18,7 +18,7 @@ Extensions.UnloadExtension(
 # Reading input parameters from file
 import csv
 input_params = []
-with open('/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/inputs.txt', 'r') as file:
+with open(input_file, 'r') as file:
     # skipping the header
     next(file)
     input_data = csv.reader(file, delimiter='\t')
