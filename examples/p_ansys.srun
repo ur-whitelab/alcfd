@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH -p awhite
+#SBATCH --time 24:00:00
+
+#SBATCH -N 1
+#SBATCH --mem=1gb 
+#SBATCH --cpus-per-task=1
+####################################################
+##########MACHINE SPECIFIC DETAILS GO HERE##########
+####################################################
+
+module load anaconda/2019.10
+source activate alcfd
+cd /gpfs/fs2/scratch/awhite38_lab/cfdsr/alcfd/examples
+
+n_samples=5
+for (( j=0; j<$n_samples; j++ ))
+do  
+    number_of_jobs=$(squeue -u mgholiza -h -t pending,running -r | wc -l)
+    while (($number_of_jobs > 50))
+    do
+        sleep 20s
+        number_of_jobs=$(squeue -u mgholiza -h -t pending,running -r | wc -l)
+    done    
+    sbatch --export=m="${j}" p_ansys.sh jobscript.sbatch -output=/dev/null --nice 12000
+
+done
