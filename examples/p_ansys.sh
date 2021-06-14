@@ -10,8 +10,8 @@
 ####################################################
 
 module load anaconda/2019.10
-source activate alcfd
-cd /gpfs/fs2/scratch/awhite38_lab/cfdsr/alcfd/examples
+source activate cfd-al
+cd /gpfs/fs2/scratch/hgandhi/cfdal/alcfd/examples
 
 python pipe_flow_parallel.py $m
 # rm -rf slurm*
