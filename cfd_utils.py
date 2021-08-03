@@ -6,7 +6,7 @@ import numpy as np
 import shutil
 
 
-def run_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, inlet_p=101325, l_d_ratio=None, name=None, debug=False, run_parallel=False):
+def run_bent_pipe_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, inlet_p=101325, l_d_ratio=None, name=None, debug=False, run_parallel=False):
     if l_d_ratio is None:
         l_d_ratio = 10
         print(f'No input was given for pipe L/D. Assuming L/D = {l_d_ratio}.')
@@ -78,7 +78,7 @@ def run_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, inlet_p=101
         print('Model cannot run. All inputs resulted a turbulent flow.')
 
 
-def run_model_expansion(inlet_D, expansion_angle, inlet_v, rho=1060, muo=0.004, debug=False, run_parallel=False, name=None):
+def run_expansion_model(inlet_D, expansion_angle, inlet_v, rho=1060, muo=0.004, debug=False, run_parallel=False, name=None):
     if name is None:
         name = ''
     path = os.getcwd()
@@ -163,22 +163,3 @@ def check_laminar(pipe_D, inlet_v, rho, muo):
 def compute_Hagen_Poiseuille_del_PL(muo, inlet_v, pipe_D):
     del_pl = 32 * muo  * inlet_v / pipe_D**2
     return del_pl
-
-
-# def execute_subprocess(cmd):
-#     from __future__ import print_function  # Only Python 2.x
-#     popen = subprocess.Popen(
-#         cmd, stdout=subprocess.PIPE, universal_newlines=True)
-#     for stdout_line in iter(popen.stdout.readline, ""):
-#         yield stdout_line
-#     popen.stdout.close()
-#     return_code = popen.wait()
-#     if return_code:
-#         raise subprocess.CalledProcessError(return_code, cmd)
-
-
-# def run_model_debug():
-#         cmdline = '/scratch/dfoster_lab/ansys2020R2/v202/Framework/bin/Linux64/runwb2 -B -R archived_models/elbowed_pipe/script.wbjn'
-#         # for debugging uncomment
-#         for path in execute_subprocess(cmdline.split(' ')):
-#                 print(path, end="")

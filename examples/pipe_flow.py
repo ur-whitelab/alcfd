@@ -5,8 +5,7 @@ import fire
 import pandas as pd
 import numpy as np
 import sys
-sys.path.insert(1, '/gpfs/fs2/scratch/awhite38_lab/cfdsr/alcfd/')
-import utilities as utils
+import cfd_utils as utils
 
 np.set_printoptions(precision=4, threshold=np.inf)
 
@@ -18,6 +17,7 @@ def run_cfd(name='cube1', d_start=0.005, d_end=0.1, t_start=1, t_end=180, v_star
     theta = np.linspace(t_start, t_end, dim, dtype=int, endpoint=False)
     v = np.linspace(v_start, v_end, dim)
     
+    # create 3D grid
     dd, tt, vv = np.meshgrid(D, theta, v, indexing='ij')
     grid_3d = np.array([(i, j, k) for i,j,k in zip(dd.flatten(), tt.flatten(), vv.flatten())])
     samples = grid_3d.shape[0]
@@ -26,19 +26,15 @@ def run_cfd(name='cube1', d_start=0.005, d_end=0.1, t_start=1, t_end=180, v_star
     rho = np.array([998 for _ in range(samples)]) # [kg m^-3]
     muo = np.array([9.737e-4 for _ in range(samples)]) # [Pa s]
     
-    inputs_3d_grid = [grid_3d[:,0], grid_3d[:,1], grid_3d[:,2], rho, muo, inlet_p]
-    
-    re_number = utils.check_laminar(grid_3d[:,0], rho, grid_3d[:,2], muo)
-    #print(re_number)
-    
-    outputs_3d_grid = utils.run_model(pipe_D=grid_3d[:, 0], 
-                                      bend_angle=grid_3d[:, 1], 
-                                      inlet_v=grid_3d[:, 2], 
-                                      rho=rho, 
-                                      muo=muo, 
-                                      inlet_p=inlet_p, 
-                                      name=name, 
-                                      run_parallel=True)
+    # Run parallel CFD simulations
+    outputs_3d_grid = utils.run_bent_pipe_model(pipe_D=grid_3d[:, 0], 
+                                                bend_angle=grid_3d[:, 1], 
+                                                inlet_v=grid_3d[:, 2], 
+                                                rho=rho, 
+                                                muo=muo, 
+                                                inlet_p=inlet_p, 
+                                                name=name, 
+                                                run_parallel=True)
 
 def main():
     fire.Fire(run_cfd)
