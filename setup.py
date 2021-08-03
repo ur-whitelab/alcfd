@@ -17,7 +17,7 @@ try:
 except:
     long_description = None
 
-exec(open('peptidesim/version.py').read())
+exec(open('alcfd/version.py').read())
 
 setup(
     # Self-descriptive entries which should always be present
