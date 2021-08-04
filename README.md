@@ -28,6 +28,11 @@ To run SISSO on `train.dat` file using `SISSO.in` (both generated during AL), us
 mpirun -n 1 SISSO
 ```
 
+## Contributing
+Please use the Issue Tracker to report bugs, installation problems, and feature requests.
+
+Pull requests for bug fixes and enhancements are very welcome. See http://makeapullrequest.com for a general introduction on how make a pull request and contribute to open source projects. 
+
 ## Citing
 [Preprint]()
 
