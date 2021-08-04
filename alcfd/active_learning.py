@@ -71,6 +71,15 @@ def query_data(N_QUERIES, X_pool, y_pool, regressor_3d, X_test = None, y_test = 
         query_index, query_instance = regressor_3d.query(X_pool)
         # Teach our ActiveLearner model the record it has requested.
         X, y = X_pool[query_index].reshape(-1, 3), y_pool[query_index].reshape(1, )
+        
+        # For CFD on the fly, uncomment the respective lines for 
+        # bent pipe or expansion joint below
+        # X = X_pool[query_index].reshape(-1, 3)
+        # y = run_bent_pipe_model(pipe_D=X[0], bend_angle=np.rad2deg(X[1]), 
+        #                         inlet_v=X[2], rho=998., muo=0.009373)['Del P/L']
+        # y = run_expansion_model(inlet_D=X[0], expansion_angle=np.rad2deg(X[1]), 
+        #                         inlet_v=X[2], rho=1060., muo=0.004)['Backflow Percent']
+        
         regressor_3d.teach(X=X, y=y)
         # Remove the queried instance from the unlabeled pool.
         Xs = np.append(Xs, X, axis=0)

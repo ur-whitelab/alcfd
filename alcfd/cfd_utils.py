@@ -36,12 +36,12 @@ def run_bent_pipe_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, i
         print(f'Model inputs are saved in:\n {inputs_dir}') 
         # re_number, a = check_laminar(pipe_D, rho, inlet_v, muo)
         wb = '/scratch/dfoster_lab/ansys2020R2/v202/Framework/bin/Linux64/runwb2'
-        script = '/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/script.wbjn'
+        script = '../archived_models/elbowed_pipe/script.wbjn'
         if not run_parallel:
             shutil.copyfile(
-                inputs_dir, '/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/inputs.txt')
+                inputs_dir, '../archived_models/elbowed_pipe/inputs.txt')
         else:
-            ProjectPath = f'/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe_{name}.wbpj'
+            ProjectPath = f'../archived_models/elbowed_pipe/elbowed_pipe_{name}.wbpj'
             input_file = inputs_dir
             with open(script, "r") as f:
                 lines = f.readlines()
@@ -69,9 +69,9 @@ def run_bent_pipe_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, i
         print(f'Results are stored in:\n {outputs_dir}.')
         if run_parallel:
             shutil.rmtree(
-                f'/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe_{name}_files')
+                f'../archived_models/elbowed_pipe/elbowed_pipe_{name}_files')
             os.remove(
-                f'/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe_{name}.wbpj')
+                f'../archived_models/elbowed_pipe/elbowed_pipe_{name}.wbpj')
             os.remove(script)
         return outputs
     else: 
@@ -106,12 +106,12 @@ def run_expansion_model(inlet_D, expansion_angle, inlet_v, rho=1060, muo=0.004, 
         print(f'Model inputs are saved in:\n {inputs_dir}')
         # re_number, a = check_laminar(pipe_D, rho, inlet_v, muo)
         wb = '/scratch/dfoster_lab/ansys2020R2/v202/Framework/bin/Linux64/runwb2'
-        script = '/scratch/awhite38_lab/cfdsr/alcfd/archived_models/expansion/script.wbjn'
+        script = '../archived_models/expansion/script.wbjn'
         if not run_parallel:
             shutil.copyfile(
-                inputs_dir, '/scratch/awhite38_lab/cfdsr/alcfd/archived_models/expansion/inputs.txt')
+                inputs_dir, '../archived_models/expansion/inputs.txt')
         else:
-            ProjectPath = f'/scratch/awhite38_lab/cfdsr/alcfd/archived_models/expansion/expansion_{name}.wbpj'
+            ProjectPath = f'../archived_models/expansion/expansion_{name}.wbpj'
             input_file = inputs_dir
             with open(script, "r") as f:
                 lines = f.readlines()
@@ -120,7 +120,7 @@ def run_expansion_model(inlet_D, expansion_angle, inlet_v, rho=1060, muo=0.004, 
                         lines[m] = f'input_file = "{input_file}"\n'
                     if line.startswith('    ProjectPath'):
                         lines[m] = f'    ProjectPath="{ProjectPath}",\n'
-            script_parallel = f'/scratch/awhite38_lab/cfdsr/alcfd/archived_models/expansion/script_parallel_{name}.wbjn'
+            script_parallel = f'../archived_models/expansion/script_parallel_{name}.wbjn'
             with open(script_parallel, "w") as f:
                 lines = "".join(lines)
                 f.write(lines)
@@ -140,9 +140,9 @@ def run_expansion_model(inlet_D, expansion_angle, inlet_v, rho=1060, muo=0.004, 
         print(f'Results are stored in:\n {outputs_dir}.')
         if run_parallel:
             shutil.rmtree(
-                f'/scratch/awhite38_lab/cfdsr/alcfd/archived_models/expansion/expansion_{name}_files')
+                f'../archived_models/expansion/expansion_{name}_files')
             os.remove(
-                f'/scratch/awhite38_lab/cfdsr/alcfd/archived_models/expansion/expansion_{name}.wbpj')
+                f'../archived_models/expansion/expansion_{name}.wbpj')
             os.remove(script)
         return outputs
     else:
