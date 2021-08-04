@@ -1,10 +1,34 @@
-Active learning symbolic regression CFD + AI = Wow
+# Active learning symbolic regression, CFD + AI = Wow
 
-# Citation
+<img src="img/concept.png">
 
-# Installation
+## Installation
 
-# Examples
+You can install using pip once you clone this repo:
+```
+git clone https://github.com/ur-whitelab/alcfd.git
+cd alcfd
+pip install .
+```
 
-# Contributing
+### Pre-requisites
+- ANSYS license to run CFD simulations. 
+- `jupyter` to run example notebooks 
 
+### SISSO installation and usage
+SISSO is written in FORTRAN and needs to be compiled. You can find instructions on installing SISSO [here](https://github.com/rouyang2017/SISSO).
+
+For this project, the `src/SISSO.f90` in their source code was changed. A patch file is provided in the `Patches/` directory. Note: This patch is hard coded for the features that we used for our CFD systems. Users should change this depending on their system.
+
+## Usage 
+Refer to jupyter notebooks provided in the `examples/` directory for example usage of CFD and Active Learning (AL) methods.
+
+To run SISSO on `train.dat` file using `SISSO.in` (both generated during AL), use this command:
+```bash
+mpirun -n 1 SISSO
+```
+
+## Citing
+[Preprint]()
+
+&copy; ALCFD Developers

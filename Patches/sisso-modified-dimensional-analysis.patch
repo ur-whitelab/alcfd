@@ -1,0 +1,29 @@
+From 7b70c02662b1f0534a7ced0f7f6a3a667311bff9 Mon Sep 17 00:00:00 2001
+From: Heta Gandhi <hgandhi@ur.rochester.edu>
+Date: Wed, 4 Aug 2021 16:42:43 -0400
+Subject: [PATCH 1/1] Modified dimensional analysis
+
+---
+ src/SISSO.f90 | 8 +++++++-
+ 1 file changed, 5 insertions(+)
+
+diff --git a/src/SISSO.f90 b/src/SISSO.f90
+index 5045d87..d764718 100644
+--- a/src/SISSO.f90
++++ b/src/SISSO.f90
+@@ -51,8 +51,14 @@ allocate(ngroup(ntask,1000))  ! (for classification) # of samples in each group
+ allocate(isconvex(ntask,1000)) ! is the dataset of each group represented by convex domain?
+ allocate(pfdim(ndimtype,nsf+nvf))
+ call read_para_b
++pfdim(:,1)=(/1.0, 0.0, 0.0, 0.0/) ! pipe D (length, angle, time, mass)
++pfdim(:,2)=(/0.0, 1.0, 0.0, 0.0/) ! theta
++pfdim(:,3)=(/1.0, 0.0, -1.0, 0.0/) ! inlet V (length/time)
++pfdim(:,4)=(/-3.0, 0.0, 0.0, 1.0/) ! density (mass/length^3)
++pfdim(:,5)=(/-1.0, 0.0, -1.0, 1.0/) ! viscosity (mass/(length time))
++
+ allocate(prop_y(sum(nsample)))
+ allocate(pfname(nsf+nvf)) ! feature names
+ allocate(pvfeat(sum(nsample),vfsize,nvf))  ! vector features             
+ allocate(res(sum(nsample)))
+-- 
+2.30.1
