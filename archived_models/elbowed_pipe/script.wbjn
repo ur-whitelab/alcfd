@@ -1,12 +1,16 @@
 ﻿# encoding: utf-8
 # 2020 R2
 print('Opening ANSYS WB...')
+import os
 SetScriptVersion(Version="20.2.221")
-input_file = "/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/inputs.txt"
+input_file =os.path.join(os.path.dirname(__file__),'inputs.txt')
 print('Restoring project from archive...')
+ArchivePath = os.path.join(os.path.dirname(__file__),
+                    'elbowed_pipe.wbpz')
+ProjectPath = ArchivePath[:-1] + "j"
 Unarchive(
-    ArchivePath="/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe.wbpz",
-    ProjectPath="/scratch/awhite38_lab/cfdsr/alcfd/archived_models/elbowed_pipe/elbowed_pipe.wbpj",
+    ArchivePath=ArchivePath,
+    ProjectPath=ProjectPath,
     Overwrite=True)
 print('Project loaded.')
 
