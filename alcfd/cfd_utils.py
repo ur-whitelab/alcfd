@@ -34,7 +34,7 @@ def run_bent_pipe_model(pipe_D, bend_angle, inlet_v, rho=1.225, muo=1.7894e-5, i
         print('Inputs to the model are:\n{}'.format(df))
         df.to_csv(inputs_dir, header=True, sep='\t', index=None)
         print(f'Model inputs are saved in:\n {inputs_dir}') 
-        # re_number, a = check_laminar(pipe_D, rho, inlet_v, muo)
+        # Note: Change wb to the directory of runwb2 on your system.
         wb = '/scratch/dfoster_lab/ansys2020R2/v202/Framework/bin/Linux64/runwb2'
         script = '../archived_models/elbowed_pipe/script.wbjn'
         if not run_parallel:
@@ -104,7 +104,7 @@ def run_expansion_model(inlet_D, expansion_angle, inlet_v, rho=1060, muo=0.004, 
         print('Inputs to the model are:\n{}'.format(df))
         df.to_csv(inputs_dir, header=True, sep='\t', index=None)
         print(f'Model inputs are saved in:\n {inputs_dir}')
-        # re_number, a = check_laminar(pipe_D, rho, inlet_v, muo)
+        # Note: Change wb to the directory of runwb2 on your system.
         wb = '/scratch/dfoster_lab/ansys2020R2/v202/Framework/bin/Linux64/runwb2'
         script = '../archived_models/expansion/script.wbjn'
         if not run_parallel:

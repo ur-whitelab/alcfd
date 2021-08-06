@@ -21,7 +21,7 @@ SISSO is written in FORTRAN and needs to be compiled. You can find instructions 
 For this project, the `src/SISSO.f90` in their source code was changed. A patch file is provided in the `Patches/` directory. Note: This patch is hard coded for the features that we used for our CFD systems. Users should change this depending on their system.
 
 ## Usage 
-Refer to jupyter notebooks provided in the `examples/` directory for example usage of CFD and Active Learning (AL) methods.
+Refer to jupyter notebooks provided in the `examples/` directory for example usage of CFD and Active Learning (AL) methods. Note that current working example models are compatible with ANSYSWB >= v2020R2.
 
 To run SISSO on `train.dat` file using `SISSO.in` (both generated during AL), use this command:
 ```bash
