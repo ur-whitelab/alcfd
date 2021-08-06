@@ -23,7 +23,7 @@ setup(
     # Self-descriptive entries which should always be present
     name='alcfd',
     author='Mehrad Ansari, Heta A. Gandhi, David G. Foster, Andrew D. White', 
-    author_email='hgandhi@ur.rochester.edu',
+    author_email='mehrad.ansari@rochester.edu, heta.gandhi@rochester.edu, andrew.white@rochester.edu',
     description=short_description,
     long_description=long_description,
     long_description_content_type="text/markdown",
