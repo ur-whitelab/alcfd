@@ -34,8 +34,19 @@ Pull requests for bug fixes and enhancements are very welcome. See http://makeap
 ## Citation
 
 Mehrad Ansari, Heta A. Gandhi, David G. Foster, Andrew D. White. "Iterative Symbolic Regression for Learning Transport Equations"
+
 [arXiv preprint arXiv:2108.03293 (2021)](https://arxiv.org/abs/2108.03293)
 
+```bibtex
+@misc{ansari2021iterative,
+      title={Iterative Symbolic Regression for Learning Transport Equations}, 
+      author={Mehrad Ansari and Heta A. Gandhi and David G. Foster and Andrew D. White},
+      year={2021},
+      eprint={2108.03293},
+      archivePrefix={arXiv},
+      primaryClass={physics.flu-dyn}
+}
+```
 ## License
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
