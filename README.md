@@ -6,7 +6,7 @@
 
 You can install using pip once you clone this repo:
 ```
-pip install alcfd@git://github.com/ur-whitelab/alcfd.git
+pip install alcfd@git+https://github.com/ur-whitelab/alcfd.git
 ```
 
 ### Pre-requisites
