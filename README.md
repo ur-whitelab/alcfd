@@ -33,16 +33,21 @@ Pull requests for bug fixes and enhancements are very welcome. See http://makeap
 
 ## Citation
 
-Mehrad Ansari (equal cont), Heta A. Gandhi (equal cont), David G. Foster, Andrew D. White. "Iterative Symbolic Regression for Learning Transport Equations"
-
-[arXiv preprint arXiv:2108.03293 (2021)](https://arxiv.org/abs/2108.03293)
+Mehrad Ansari (equal cont), Heta A. Gandhi (equal cont), David G. Foster, Andrew D. White. "Iterative Symbolic Regression for Learning Transport Equations" 
+*AIChE J.* **2022**;e17695. [doi:10.1002/aic.17695](https://doi.org/10.1002/aic.17695)
 
 ```bibtex
-@article{ansari2021iterative,
-      title={Iterative Symbolic Regression for Learning Transport Equations}, 
-      author={Mehrad Ansari and Heta A. Gandhi and David G. Foster and Andrew D. White},
-      year={2021},
-      journal={arXiv preprint arXiv:2108.03293},
+@article{Ansari2022,
+      author = {Ansari, Mehrad and Gandhi, Heta A. and Foster, David G. and White, Andrew D.},
+      title = {Iterative symbolic regression for learning transport equations},
+      journal = {AIChE Journal},
+      volume = {n/a},
+      number = {n/a},
+      pages = {e17695},
+      year = {2022},
+      keywords = {artificial intelligence, computational fluid dynamics, fluid mechanics},
+      doi = {https://doi.org/10.1002/aic.17695},
+      url = {https://aiche.onlinelibrary.wiley.com/doi/abs/10.1002/aic.17695},
 }
 ```
 ## License
