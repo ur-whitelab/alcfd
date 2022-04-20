@@ -1,0 +1,27 @@
+!_________________________________________________________________
+! keywords for the target properties
+!_________________________________________________________________
+ptype=1
+ntask=1
+nsample=44
+task_weighting=1
+desc_dim=3                            ! dimension of the descriptor
+restart=.false.                       ! set .true. to continue a job that was stopped but not yet finished
+!_________________________________________________________________
+!keywords for feature construction and sure independence screening
+!_________________________________________________________________
+nsf=5                                 ! number of scalar features (one feature is one number for each material)
+rung=2                                ! rung (<=3) of the feature space to be constructed (times of applying the opset recursively)
+opset='(+)(-)(*)(/)(exp)(exp-)(^-1)(^2)(sin)(cos)'
+maxcomplexity=5                      ! max feature complexity (number of operators in a feature)
+dimclass=(1:1)(2:2)(3:3)(4:5)              ! group features according to their dimension/unit; those not in any () are dimensionless
+maxfval_lb=1e-6                       ! features having the max. abs. data value < maxfval_lb will not be selected
+maxfval_ub=1e4                        ! features having the max. abs. data value > maxfval_ub will not be selected
+subs_sis=2000                          ! size of the SIS-selected (single) subspace for each descriptor dimension
+!_________________________________________________________________
+!keywords for descriptor identification via a sparsifying operator
+!_________________________________________________________________
+method='L0'                           ! sparsification operator: 'L1L0' or 'L0'; L0 is recommended!
+fit_intercept=.false.                 ! fit to a nonzero intercept (.true.) or force the intercept to zero (.false.)
+metric='RMSE'                         ! for regression only, the metric for model selection: RMSE,MaxAE
+nm_output=100                          ! number of the best models to output
